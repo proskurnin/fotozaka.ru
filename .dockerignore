@@ -1,0 +1,7 @@
+.git
+node_modules
+dist
+.vinext
+.wrangler
+*.tsbuildinfo
+npm-debug.log*
