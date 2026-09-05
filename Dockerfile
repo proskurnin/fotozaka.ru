@@ -1,6 +1,10 @@
-FROM node:22-bookworm-slim
+FROM node:20-bullseye-slim
 
 WORKDIR /app
+
+ENV NODE_OPTIONS=--v8-pool-size=1
+ENV UV_THREADPOOL_SIZE=1
+ENV npm_config_jobs=1
 
 COPY package.json package-lock.json ./
 RUN npm ci
