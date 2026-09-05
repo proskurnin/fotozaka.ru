@@ -1,4 +1,4 @@
-FROM node:22-bullseye-slim
+FROM node:22-bullseye-slim AS builder
 
 WORKDIR /app
 
@@ -11,6 +11,15 @@ RUN npm ci
 
 COPY . .
 RUN npm run build
+
+FROM node:22-bookworm-slim AS runner
+
+WORKDIR /app
+
+ENV NODE_OPTIONS=--v8-pool-size=1
+ENV UV_THREADPOOL_SIZE=1
+
+COPY --from=builder /app /app
 
 EXPOSE 3000
 
