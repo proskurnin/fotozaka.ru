@@ -1,0 +1,9 @@
+'use client';
+
+import { useState } from 'react';
+import { ArrowLeft, BadgeCheck, CalendarDays, Check, Clock3, Star, X } from 'lucide-react';
+import { SiteFooter, SiteHeader } from '../_components/site-shell';
+import { photographers } from '../data';
+
+const rows=[['Полная цена','8 500 ₽','10 500 ₽','14 000 ₽'],['Ближайшее окно','Сегодня, 18:30','Завтра, 11:00','7 сентября'],['Готовность фото','7 дней','10 дней','21 день'],['Подтверждает заявки','98%','96%','99%'],['Съёмок через сервис','127','92','116'],['Помощь с образом','Включена','Рекомендации','Стилист +3 500 ₽']];
+export default function ComparePage(){const [people,setPeople]=useState(photographers.slice(0,3));return <main><SiteHeader compact/><section className="compare-page shell"><a className="back-link" href="/search"><ArrowLeft/>Назад к поиску</a><span className="kicker">Выбор без догадок</span><h1>Сравнение фотографов</h1><p>Цена, свободное время и подтверждённые факты — в одном месте.</p><div className="compare-table"><div className="compare-head"><span/><>{people.map((p)=><article key={p.slug}><button onClick={()=>setPeople((v)=>v.filter((x)=>x.slug!==p.slug))}><X/></button><div className="compare-avatar mosaic-photo" style={{backgroundPosition:p.crop}}/><h2>{p.name} {p.verified&&<BadgeCheck/>}</h2><span><Star fill="currentColor"/> {p.rating} · {p.reviews} отзывов</span><a href={`/photographers/${p.slug}`}>Открыть профиль</a></article>)}</></div>{rows.map((r)=><div className="compare-row" key={r[0]}><b>{r[0]}</b>{people.map((p,i)=><span key={p.slug}>{r[i+1]}</span>)}</div>)}<div className="compare-row actions"><b>Выбрать</b>{people.map((p)=><a href="/booking" key={p.slug}><CalendarDays/>Свободные даты</a>)}</div></div><div className="compare-verdict"><Check/><div><b>Лучшее совпадение — Алина Ветрова</b><p>Подходит по бюджету, отдаёт фото быстрее и свободна в выбранную дату.</p></div><Clock3/></div></section><SiteFooter/></main>}

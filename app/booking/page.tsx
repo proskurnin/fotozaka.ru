@@ -1,0 +1,19 @@
+'use client';
+
+import { useMemo, useState } from 'react';
+import { ArrowLeft, Check, CreditCard, LockKeyhole, Plus, ShieldCheck } from 'lucide-react';
+import { Logo } from '../_components/site-shell';
+import { addOns } from '../data';
+
+export default function BookingPage() {
+  const [done, setDone] = useState(false); const [selected,setSelected]=useState<string[]>([]);
+  const base=9900; const extras=useMemo(()=>addOns.filter((x)=>selected.includes(x.id)).reduce((s,x)=>s+x.price,0),[selected]); const total=base+extras; const prepaid=Math.round(total*.2);
+  const toggle=(id:string)=>setSelected((v)=>v.includes(id)?v.filter((x)=>x!==id):[...v,id]);
+  if (done) return <main className="checkout-page"><header className="checkout-head shell"><Logo/><span>Безопасное оформление</span></header><section className="success-card"><div><Check size={34}/></div><span className="kicker">Заявка №1248</span><h1>Съёмка забронирована</h1><p>Алина подтвердит заявку в течение двух часов. Итоговая цена зафиксирована и уже не изменится.</p><div className="success-details"><span><b>7 сентября, 06:00</b>Москва-Сити</span><span><b>{total.toLocaleString('ru-RU')} ₽</b>полная стоимость</span></div><a href="/dashboard/client/orders/1248">Перейти к заказу</a></section></main>;
+  return <main className="checkout-page"><header className="checkout-head shell"><Logo/><span><LockKeyhole size={15}/> Безопасное оформление</span></header><div className="checkout-layout shell"><section className="checkout-form"><a href="/photographers/alina-vetrova" className="back-link"><ArrowLeft size={15}/> Назад к фотографу</a><span className="kicker">Последний шаг</span><h1>Соберите съёмку</h1>
+    <div className="step-card"><span>1</span><div><h2>Контактные данные</h2><div className="form-grid"><label>Имя<input defaultValue="Роман"/></label><label>Телефон<input placeholder="+7 999 000-00-00"/></label><label className="wide">Почта<input type="email" placeholder="mail@example.ru"/></label></div></div></div>
+    <div className="step-card"><span>2</span><div><h2>Добавить к съёмке</h2><p className="step-help">Можно собрать команду сразу — специалисты увидят дату и будут синхронизированы с фотографом.</p><div className="addons-list">{addOns.map((x)=><button className={selected.includes(x.id)?'selected':''} onClick={()=>toggle(x.id)} key={x.id}><span>{selected.includes(x.id)?<Check/>:<Plus/>}</span><div><b>{x.name}</b><small>{x.specialist} · {x.time}</small></div><strong>+ {x.price.toLocaleString('ru-RU')} ₽</strong></button>)}</div></div></div>
+    <div className="step-card"><span>3</span><div><h2>Пожелания фотографу</h2><label>Расскажите о себе и идее<textarea placeholder="Например: хотим спокойную прогулку без сложных поз..."/></label><label className="check-row"><input type="checkbox"/> Будем с ребёнком или питомцем</label></div></div>
+    <div className="step-card"><span>4</span><div><h2>Предоплата</h2><div className="payment-choice"><CreditCard size={22}/><span><b>Банковская карта</b>Безопасная оплата через сервис</span><Check size={17}/></div></div></div></section>
+    <aside className="order-total"><div className="order-cover mosaic-photo"/><span className="kicker">Ваш заказ</span><h2>Рассвет на крыше</h2><p>Алина Ветрова · Москва-Сити</p><dl><div><dt>Фотограф · 60 минут</dt><dd>9 900 ₽</dd></div><div><dt>Локация</dt><dd>0 ₽</dd></div>{addOns.filter((x)=>selected.includes(x.id)).map((x)=><div key={x.id}><dt>{x.name}</dt><dd>{x.price.toLocaleString('ru-RU')} ₽</dd></div>)}<div className="grand-total"><dt>Полная стоимость</dt><dd>{total.toLocaleString('ru-RU')} ₽</dd></div><div><dt>Предоплата сегодня</dt><dd>{prepaid.toLocaleString('ru-RU')} ₽</dd></div></dl><button onClick={() => setDone(true)}>Оплатить {prepaid.toLocaleString('ru-RU')} ₽</button><small><ShieldCheck size={15}/> Цена зафиксируется после оплаты. Вернём предоплату, если фотограф не подтвердит заявку.</small></aside></div></main>;
+}
