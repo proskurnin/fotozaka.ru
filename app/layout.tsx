@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://fotozaka.ru'),
   title: 'ФотоЗака — найдите своего фотографа',
   description: 'Выберите город, стиль, локацию и свободное время. Проверенные фотографы и понятная цена за съёмку.',
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    shortcut: '/favicon.svg',
+  },
   openGraph: {
     title: 'ФотоЗака — ваш фотограф, ваше время',
     description: 'Свободные даты, готовые локации и проверенные фотографы рядом.',
