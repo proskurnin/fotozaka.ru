@@ -1,0 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+import { Check, Download, Heart, Image as ImageIcon, LockKeyhole, Share2 } from 'lucide-react';
+import { Logo } from '../../_components/site-shell';
+
+export default function ClientGalleryPage(){const [selected,setSelected]=useState<number[]>([0,3,7]);const toggle=(i:number)=>setSelected(v=>v.includes(i)?v.filter(x=>x!==i):[...v,i]);return <main className="real-gallery"><header className="real-gallery-head shell"><Logo/><div><button><Share2/>Поделиться</button><button><Download/>Скачать всё</button></div></header><section className="real-gallery-intro shell"><span>Алина Ветрова · 7 сентября 2026</span><h1>Рассвет в Москва-Сити</h1><p>64 фотографии · доступны до 7 декабря</p><div><LockKeyhole/>Галерея доступна только по персональной ссылке</div></section><section className="gallery-select-bar"><div className="shell"><span><Heart fill="currentColor"/>{selected.length} выбрано для ретуши</span><button>Отправить выбор фотографу</button></div></section><section className="real-gallery-grid shell">{Array.from({length:18},(_,i)=><button className={`mosaic-photo gallery-cell cell-${i%6} ${selected.includes(i)?'selected':''}`} aria-label={`Фотография ${i+1}`} onClick={()=>toggle(i)} key={i}>{selected.includes(i)&&<span><Check/></span>}</button>)}</section><footer className="gallery-expiry shell"><ImageIcon/><div><b>Хранение включено до 7 декабря</b><p>После этого фотографии можно перенести в архив или продлить хранение.</p></div><button>Продлить на год</button></footer></main>}

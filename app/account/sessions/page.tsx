@@ -1,0 +1,4 @@
+import { CheckCircle2, Laptop, LogOut, ShieldCheck, Smartphone } from 'lucide-react';
+import { SiteFooter, SiteHeader } from '../../_components/site-shell';
+
+export default function SessionsPage(){return <main><SiteHeader compact/><section className="account-page shell"><a href="/dashboard/client/settings">← Настройки</a><span className="eyebrow"><ShieldCheck/>Безопасность</span><h1>Устройства и сеансы</h1><p>Здесь видны устройства, на которых открыт ваш аккаунт.</p><div className="session-list"><article><span><Laptop/></span><div><b>Mac · Codex Browser</b><small>Москва · сейчас</small></div><i><CheckCircle2/>Текущий сеанс</i></article><article><span><Smartphone/></span><div><b>iPhone · Safari</b><small>Москва · 2 сентября, 18:42</small></div><button><LogOut/>Завершить</button></article></div><button className="session-all">Завершить все другие сеансы</button></section><SiteFooter/></main>}

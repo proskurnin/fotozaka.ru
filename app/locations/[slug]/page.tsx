@@ -1,7 +1,15 @@
-import { ArrowLeft, ArrowRight, Car, Check, Clock3, CloudRain, MapPin, Navigation, ShieldCheck, SunMedium, Users } from 'lucide-react';
+import type { Metadata } from 'next';
+import { ArrowLeft, ArrowRight, Car, Check, CloudRain, MapPin, Navigation, ShieldCheck, SunMedium, Users } from 'lucide-react';
 import { PhotoCard } from '../../_components/photo-card';
 import { SiteFooter, SiteHeader } from '../../_components/site-shell';
 import { locations, photographers } from '../../data';
+
+export const metadata: Metadata = {
+  title: 'Москва-Сити — локация для фотосессии | ФотоЗака',
+  description: 'Лучший свет, маршрут, правила и фотографы, которые знают Москва-Сити.',
+  openGraph: { images: [] },
+  twitter: { images: [] },
+};
 
 export default function LocationPage(){const l=locations[0];return <main><SiteHeader compact/><div className="shell crumbs"><a href="/locations"><ArrowLeft/>Все локации</a><span>Москва · Город</span></div>
   <section className="location-detail-hero shell"><div className="location-detail-photo mosaic-photo"/><div><span className="eyebrow"><SunMedium/> Идеально на рассвете</span><h1>{l.name}</h1><p>Стекло, отражения и чистая архитектура. Подходит для портретов, love story и контента для личного бренда.</p><div className="location-stats"><span><b>{l.shoots}</b>съёмок через ФотоЗаку</span><span><b>{l.photographers}</b>фотографов знают место</span><span><b>0 ₽</b>стоимость локации</span></div><a className="primary-link" href="/search">Найти фотографа здесь <ArrowRight/></a></div></section>
